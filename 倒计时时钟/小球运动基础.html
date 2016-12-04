@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>小球运动基础</title>
+<style>
+#canvas {border:1px solid black; margin:0 auto;}
+</style>
+</head>
+
+<body>
+<canvas id="canvas">您的浏览器不支持canvas</canvas>
+
+<script>
+
+var canvas = document.getElementById('canvas');
+var cxt = canvas.getContext('2d');
+canvas.width=500;
+canvas.height=500;
+
+var ball = {x:400,y:50,r:10,g:2,vx:-5,vy:-3,color:'#005588'};
+
+setInterval(function(){
+	render();
+	update()
+	},30);
+	
+function update(){
+  ball.x += ball.vx;
+  ball.y += ball.vy;
+  ball.vy += ball.g;
+  
+  if(ball.y>canvas.height-ball.r){
+	ball.y = 500-ball.r;
+	ball.vy = -ball.vy*0.2;  
+  }
+  
+}
+
+function render(){
+  cxt.fillStyle = ball.color;
+  cxt.clearRect(0,0,canvas.width,canvas.height);
+  cxt.beginPath();
+  cxt.arc(ball.x,ball.y,ball.r,0, 2*Math.PI,false);
+  cxt.closePath();
+  
+  cxt.fill();
+}
+</script>
+</body>
+</html>
